@@ -1,0 +1,5 @@
+{
+  "name": "MathClock Explorer",
+  "description": "An interactive educational clock for elementary students to learn about time, the relationship between hour and minute hands, and the 24-hour cycle. Includes AI-powered quizzes.",
+  "requestFramePermissions": []
+}
