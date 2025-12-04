@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { ClockFace } from './components/ClockFace';
 import { ControlPanel } from './components/ControlPanel';
@@ -106,165 +105,170 @@ const App: React.FC = () => {
 
   // Mode Tabs
   const renderTabs = () => (
-    <div className="flex bg-slate-100 p-1 rounded-xl mb-6 overflow-x-auto no-scrollbar">
+    <div className="flex bg-slate-100 p-1 rounded-xl w-full overflow-x-auto no-scrollbar shrink-0">
       <button
         onClick={() => setMode(TimeMode.Learning)}
-        className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-bold transition whitespace-nowrap ${mode === TimeMode.Learning ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap ${mode === TimeMode.Learning ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
       >
-        <MousePointerClick size={16} /> 自由探索
+        <MousePointerClick size={14} className="md:w-4 md:h-4" /> 自由探索
       </button>
       <button
         onClick={() => setMode(TimeMode.Quiz)}
-        className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-bold transition whitespace-nowrap ${mode === TimeMode.Quiz ? 'bg-white text-violet-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap ${mode === TimeMode.Quiz ? 'bg-white text-violet-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
       >
-        <Brain size={16} /> 闯关挑战
+        <Brain size={14} className="md:w-4 md:h-4" /> 闯关
       </button>
       <button
         onClick={() => setMode(TimeMode.Calculation)}
-        className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-bold transition whitespace-nowrap ${mode === TimeMode.Calculation ? 'bg-white text-amber-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap ${mode === TimeMode.Calculation ? 'bg-white text-amber-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
       >
-        <Calculator size={16} /> 时间计算
+        <Calculator size={14} className="md:w-4 md:h-4" /> 计算
       </button>
       <button
         onClick={() => setMode(TimeMode.Activity)}
-        className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-bold transition whitespace-nowrap ${mode === TimeMode.Activity ? 'bg-white text-pink-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap ${mode === TimeMode.Activity ? 'bg-white text-pink-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
       >
-        <Users size={16} /> 小组活动
+        <Users size={14} className="md:w-4 md:h-4" /> 活动
       </button>
       <button
         onClick={() => setMode(TimeMode.Statistics)}
-        className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-bold transition whitespace-nowrap ${mode === TimeMode.Statistics ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs md:text-sm font-bold transition whitespace-nowrap ${mode === TimeMode.Statistics ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
       >
-        <PieChart size={16} /> 学习统计
+        <PieChart size={14} className="md:w-4 md:h-4" /> 统计
       </button>
     </div>
   );
 
   return (
-    <div className={`flex flex-col md:flex-row h-screen w-full transition-colors duration-1000 ${isDaytime ? 'bg-sky-50' : 'bg-slate-900'}`}>
+    <div className={`flex flex-col md:flex-row h-screen w-full overflow-hidden transition-colors duration-1000 ${isDaytime ? 'bg-sky-50' : 'bg-slate-900'}`}>
       
-      {/* Left Panel: Visuals */}
-      <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-8 relative overflow-hidden select-none">
+      {/* 
+          TOP / LEFT PANEL: Visuals & Clock 
+          - Mobile: Top 45% height
+          - Desktop: Left Flex-1 height 100%
+      */}
+      <div className="flex-shrink-0 h-[45vh] md:h-full md:flex-1 flex flex-col items-center justify-center relative select-none p-2 overflow-hidden">
         
         {/* Sky/Ambience Background Effects */}
-        <div className={`absolute top-10 left-10 transition-all duration-1000 ${isDaytime ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-             <Sun size={64} className="text-yellow-400 animate-pulse" />
+        <div className={`absolute top-4 left-4 md:top-10 md:left-10 transition-all duration-1000 ${isDaytime ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+             <Sun size={40} className="md:w-16 md:h-16 text-yellow-400 animate-pulse" />
         </div>
-        <div className={`absolute top-10 right-10 transition-all duration-1000 ${!isDaytime ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-             <Moon size={64} className="text-slate-200" />
+        <div className={`absolute top-4 right-4 md:top-10 md:right-10 transition-all duration-1000 ${!isDaytime ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+             <Moon size={40} className="md:w-16 md:h-16 text-slate-200" />
         </div>
 
         {/* Title */}
-        <header className="mb-8 text-center z-10 pointer-events-none">
-            <h1 className={`text-3xl md:text-4xl font-bold mb-2 flex items-center justify-center gap-3 ${isDaytime ? 'text-sky-900' : 'text-sky-100'}`}>
-                <Clock className={isDaytime ? 'text-sky-600' : 'text-sky-300'} size={40} />
+        <header className="mb-2 md:mb-8 text-center z-10 pointer-events-none shrink-0">
+            <h1 className={`text-xl md:text-4xl font-bold mb-1 flex items-center justify-center gap-2 ${isDaytime ? 'text-sky-900' : 'text-sky-100'}`}>
+                <Clock className={`${isDaytime ? 'text-sky-600' : 'text-sky-300'} md:w-8 md:h-8`} size={24} />
                 数学时间探险
             </h1>
-            <p className={`text-lg ${isDaytime ? 'text-sky-700' : 'text-sky-300'}`}>
-                第 <span className="font-mono font-bold text-2xl mx-1">{daysPassed + 1}</span> 天
+            <p className={`text-xs md:text-lg ${isDaytime ? 'text-sky-700' : 'text-sky-300'}`}>
+                第 <span className="font-mono font-bold text-sm md:text-xl mx-1">{daysPassed + 1}</span> 天
             </p>
         </header>
 
-        {/* The Clock */}
-        <div className="mb-10 w-full flex justify-center z-10">
-           <ClockFace 
-              totalMinutes={totalMinutes} 
-              onTimeChange={handleTimeChange}
-              isInteractive={true}
-           />
+        {/* The Clock - Constrained to prevent overflow */}
+        <div className="flex-1 w-full flex items-center justify-center min-h-0 z-10 p-2">
+           <div className="h-full aspect-square max-h-[300px] md:max-h-[500px] w-auto">
+                <ClockFace 
+                    totalMinutes={totalMinutes} 
+                    onTimeChange={handleTimeChange}
+                    isInteractive={true}
+                />
+           </div>
         </div>
 
         {/* Digital Display Box */}
-        {mode === TimeMode.Quiz ? (
-             <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-violet-200 z-10 w-64 text-center">
-                 <div className="text-violet-600 flex flex-col items-center gap-2">
-                     <EyeOff size={32} />
-                     <span className="font-bold">电子钟已隐藏</span>
-                     <span className="text-xs text-slate-500">请直接观察钟面作答哦</span>
-                 </div>
-             </div>
-        ) : (
-            <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-xl flex items-center justify-center gap-8 border border-white/50 z-10 pointer-events-none">
-                <div className="text-center">
-                    <div className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">12小时制</div>
-                    <div className="font-mono text-4xl font-bold text-slate-800 tracking-widest">
-                        {hours12}:{pad(minutes)} <span className="text-lg text-slate-500">{ampm}</span>
+        <div className="shrink-0 mb-2 md:mb-10 z-10">
+            {mode === TimeMode.Quiz ? (
+                <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl shadow-lg border border-violet-200 text-center">
+                    <div className="text-violet-600 flex items-center gap-2 text-sm md:text-base">
+                        <EyeOff size={16} />
+                        <span className="font-bold">电子钟已隐藏</span>
                     </div>
                 </div>
-                <div className="w-px h-12 bg-slate-300"></div>
-                <div className="text-center">
-                    <div className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">24小时制</div>
-                    <div className="font-mono text-3xl font-bold text-indigo-600 tracking-widest">
-                        {pad(hours24)}:{pad(minutes)}
+            ) : (
+                <div className="bg-white/90 backdrop-blur-sm px-4 py-2 md:px-6 md:py-4 rounded-xl shadow-lg flex items-center justify-center gap-4 border border-white/50">
+                    <div className="text-center">
+                        <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-0.5">12小时制</div>
+                        <div className="font-mono text-xl md:text-4xl font-bold text-slate-800 tracking-widest">
+                            {hours12}:{pad(minutes)} <span className="text-sm md:text-lg text-slate-500">{ampm}</span>
+                        </div>
+                    </div>
+                    <div className="w-px h-8 md:h-12 bg-slate-300"></div>
+                    <div className="text-center">
+                        <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-0.5">24小时制</div>
+                        <div className="font-mono text-lg md:text-3xl font-bold text-indigo-600 tracking-widest">
+                            {pad(hours24)}:{pad(minutes)}
+                        </div>
                     </div>
                 </div>
-            </div>
-        )}
+            )}
+        </div>
       </div>
 
-      {/* Right Panel: Controls & Interaction */}
-      <div className={`w-full md:w-[450px] flex flex-col z-20 shadow-2xl transition-colors duration-1000 ${isDaytime ? 'bg-white' : 'bg-slate-800 border-l border-slate-700'}`}>
+      {/* 
+          BOTTOM / RIGHT PANEL: Controls
+          - Mobile: Bottom 55% height, Rounded top corners, Shadow
+          - Desktop: Right side 450px, Full height
+      */}
+      <div className={`flex-1 md:w-[450px] md:flex-none h-[55vh] md:h-full z-20 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.3)] rounded-t-[2rem] md:rounded-none flex flex-col overflow-hidden transition-colors duration-1000 ${isDaytime ? 'bg-white' : 'bg-slate-800 border-l border-slate-700'}`}>
         
-        <div className="p-6 h-full overflow-y-auto">
-            <div className="max-w-md mx-auto min-h-full flex flex-col">
-                
-                {renderTabs()}
+        {/* Fixed Header with Tabs */}
+        <div className="flex-none p-2 pb-0 md:p-6 md:pb-6 bg-inherit mt-2 md:mt-0">
+             {renderTabs()}
+        </div>
 
-                <div className="flex-1">
-                    {mode === TimeMode.Learning && (
-                        <div className="space-y-6">
-                            <ControlPanel 
-                                onAddMinutes={handleAddMinutes}
-                                onSetSpecific={(m) => setTotalMinutes(m)}
-                                isAnimating={isAnimating}
-                                toggleAnimation={() => setIsAnimating(!isAnimating)}
-                                reset={handleReset}
-                                currentTotalMinutes={totalMinutes}
-                            />
-                            <div className={`p-5 rounded-2xl border ${isDaytime ? 'bg-amber-50 border-amber-100 text-amber-900' : 'bg-slate-700 border-slate-600 text-slate-200'}`}>
-                                <h3 className="font-bold mb-3 flex items-center gap-2">
-                                    💡 观察重点
-                                </h3>
-                                <ul className="space-y-3 text-sm leading-relaxed">
-                                    <li className="flex gap-2">
-                                        <span className="font-bold text-red-500">红色时针</span>: 
-                                        它又短又粗，走得最慢。
-                                    </li>
-                                    <li className="flex gap-2">
-                                        <span className="font-bold text-blue-500">蓝色分针</span>: 
-                                        它细细长长的，走得比较快。
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    )}
+        {/* Scrollable Content Area */}
+        <div className="flex-1 overflow-y-auto p-2 pt-2 md:p-6 md:pt-0 custom-scrollbar">
+            <div className="max-w-md mx-auto h-full">
+                {mode === TimeMode.Learning && (
+                    <div className="space-y-4 md:space-y-6 pb-6">
+                        <ControlPanel 
+                            onAddMinutes={handleAddMinutes}
+                            onSetSpecific={(m) => setTotalMinutes(m)}
+                            isAnimating={isAnimating}
+                            toggleAnimation={() => setIsAnimating(!isAnimating)}
+                            reset={handleReset}
+                            currentTotalMinutes={totalMinutes}
+                        />
+                    </div>
+                )}
 
-                    {mode === TimeMode.Quiz && (
+                {mode === TimeMode.Quiz && (
+                    <div className="pb-6">
                         <Quiz 
                             isActive={currentQuiz !== null} 
                             onStartQuiz={startQuiz} 
                             onCheckAnswer={checkAnswer}
                             onEndQuiz={endQuiz}
                         />
-                    )}
+                    </div>
+                )}
 
-                    {mode === TimeMode.Calculation && (
+                {mode === TimeMode.Calculation && (
+                    <div className="pb-6">
                         <TimeCalculator 
                             onSetTime={(m) => {
                                 setTotalMinutes(m);
                                 setIsAnimating(false);
                             }} 
                         />
-                    )}
+                    </div>
+                )}
 
-                    {mode === TimeMode.Activity && (
+                {mode === TimeMode.Activity && (
+                    <div className="pb-6">
                         <ClassroomActivity />
-                    )}
+                    </div>
+                )}
 
-                    {mode === TimeMode.Statistics && (
+                {mode === TimeMode.Statistics && (
+                    <div className="h-full pb-6">
                         <Statistics />
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         </div>
       </div>

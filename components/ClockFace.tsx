@@ -167,71 +167,72 @@ export const ClockFace: React.FC<ClockFaceProps> = ({ totalMinutes, onTimeChange
   }, []);
 
   return (
-    <div className="relative w-full max-w-md aspect-square mx-auto drop-shadow-2xl">
-      <svg 
-        ref={svgRef}
-        viewBox="0 0 200 200" 
-        className={`w-full h-full bg-white rounded-full border-8 border-slate-800 ${isInteractive ? 'cursor-default' : ''} touch-none`}
-        onPointerDown={(e) => handlePointerDown(e, 'bg')}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
-      >
-        {/* Face Background */}
-        <circle cx="100" cy="100" r="95" fill="white" />
-        
-        {/* Ticks & Numbers */}
-        {ticks}
-        {numbers}
-        {numbers24}
-
-        {/* Hour Hand Group */}
-        {/* Use SVG transform attribute directly for best reliability */}
-        <g 
-            transform={`rotate(${hourAngle} 100 100)`}
-            className={`${isInteractive ? 'cursor-grab active:cursor-grabbing' : ''}`}
-            onPointerDown={(e) => handlePointerDown(e, 'hour')}
+    <div className="flex flex-col items-center w-full h-full justify-center">
+      <div className="relative w-auto h-full aspect-square drop-shadow-2xl">
+        <svg 
+            ref={svgRef}
+            viewBox="0 0 200 200" 
+            className={`w-full h-full bg-white rounded-full border-8 border-slate-800 ${isInteractive ? 'cursor-default' : ''} touch-none`}
+            onPointerDown={(e) => handlePointerDown(e, 'bg')}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerLeave={handlePointerUp}
         >
-           {/* Invisible hit area (Thicker for easier grabbing) */}
-           <path d="M100 100 L100 50" stroke="transparent" strokeWidth="25" strokeLinecap="round" />
-           
-           {/* Visual Hour Hand (Red, Short, Thick) */}
-           <path d="M100 100 L100 55" stroke="#ef4444" strokeWidth="8" strokeLinecap="round" />
-           <path d="M100 100 L100 110" stroke="#ef4444" strokeWidth="8" strokeLinecap="round" />
-        </g>
+            {/* Face Background */}
+            <circle cx="100" cy="100" r="95" fill="white" />
+            
+            {/* Ticks & Numbers */}
+            {ticks}
+            {numbers}
+            {numbers24}
 
-        {/* Minute Hand Group */}
-        <g 
-            transform={`rotate(${minuteAngle} 100 100)`} 
-            className={`${isInteractive ? 'cursor-grab active:cursor-grabbing' : ''}`}
-            onPointerDown={(e) => handlePointerDown(e, 'minute')}
-        >
-           {/* Invisible hit area (Thicker) */}
-           <path d="M100 100 L100 30" stroke="transparent" strokeWidth="25" strokeLinecap="round" />
-           
-           {/* Visual Minute Hand (Blue, Long, Thin) */}
-           <path d="M100 100 L100 30" stroke="#3b82f6" strokeWidth="5" strokeLinecap="round" />
-           <path d="M100 100 L100 115" stroke="#3b82f6" strokeWidth="5" strokeLinecap="round" />
-           
-           {/* Knob */}
-           <circle cx="100" cy="40" r="4" fill="white" stroke="#3b82f6" strokeWidth="2" />
-        </g>
+            {/* Hour Hand Group */}
+            <g 
+                transform={`rotate(${hourAngle} 100 100)`}
+                className={`${isInteractive ? 'cursor-grab active:cursor-grabbing' : ''}`}
+                onPointerDown={(e) => handlePointerDown(e, 'hour')}
+            >
+            {/* Invisible hit area (Thicker for easier grabbing) */}
+            <path d="M100 100 L100 50" stroke="transparent" strokeWidth="25" strokeLinecap="round" />
+            
+            {/* Visual Hour Hand (Red, Short, Thick) */}
+            <path d="M100 100 L100 55" stroke="#ef4444" strokeWidth="8" strokeLinecap="round" />
+            <path d="M100 100 L100 110" stroke="#ef4444" strokeWidth="8" strokeLinecap="round" />
+            </g>
 
-        {/* Center Nut */}
-        <circle cx="100" cy="100" r="6" fill="#1e293b" pointerEvents="none" />
-        <circle cx="100" cy="100" r="2.5" fill="#f8fafc" pointerEvents="none" />
+            {/* Minute Hand Group */}
+            <g 
+                transform={`rotate(${minuteAngle} 100 100)`} 
+                className={`${isInteractive ? 'cursor-grab active:cursor-grabbing' : ''}`}
+                onPointerDown={(e) => handlePointerDown(e, 'minute')}
+            >
+            {/* Invisible hit area (Thicker) */}
+            <path d="M100 100 L100 30" stroke="transparent" strokeWidth="25" strokeLinecap="round" />
+            
+            {/* Visual Minute Hand (Blue, Long, Thin) */}
+            <path d="M100 100 L100 30" stroke="#3b82f6" strokeWidth="5" strokeLinecap="round" />
+            <path d="M100 100 L100 115" stroke="#3b82f6" strokeWidth="5" strokeLinecap="round" />
+            
+            {/* Knob */}
+            <circle cx="100" cy="40" r="4" fill="white" stroke="#3b82f6" strokeWidth="2" />
+            </g>
 
-      </svg>
+            {/* Center Nut */}
+            <circle cx="100" cy="100" r="6" fill="#1e293b" pointerEvents="none" />
+            <circle cx="100" cy="100" r="2.5" fill="#f8fafc" pointerEvents="none" />
+
+        </svg>
+      </div>
       
       {/* Legend */}
-      <div className="absolute -bottom-12 left-0 right-0 flex justify-center gap-6 pointer-events-none">
+      <div className="mt-4 flex justify-center gap-6 pointer-events-none shrink-0">
          <div className="flex items-center gap-2">
             <div className="w-8 h-2 bg-red-500 rounded-full"></div>
-            <span className="text-sm font-bold text-red-600">时针</span>
+            <span className="text-xs font-bold text-red-600">时针</span>
          </div>
          <div className="flex items-center gap-2">
             <div className="w-12 h-1 bg-blue-500 rounded-full"></div>
-            <span className="text-sm font-bold text-blue-600">分针</span>
+            <span className="text-xs font-bold text-blue-600">分针</span>
          </div>
       </div>
     </div>
